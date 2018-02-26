@@ -10,7 +10,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Map<String, String> _data = {};
+  Map<String, dynamic> _data = {};
 
   @override
   initState() {
@@ -19,7 +19,7 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   _scanCard() async {
-    Map<String, String> details;
+    Map<String, dynamic> details;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       details = await FlutterCardIo.scanCard({
@@ -29,20 +29,20 @@ class _MyAppState extends State<MyApp> {
         "requirePostalCode": true,
         "restrictPostalCodeToNumericOnly": true,
         "requireCardHolderName": true,
-        "scanInstructions": true
+        "scanInstructions": "Hola! Fit the card within the box",
       });
-      if (details == null) {
-        print("Canceled");
-      }
+
     } on PlatformException {
       print("Failed");
       return;
     }
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted || details == null) return;
+    if (details == null) {
+      print("Canceled");
+      return;
+    }
+
+    if (!mounted) return;
 
     setState(() {
       _data = details;
@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
     return new MaterialApp(
       home: new Scaffold(
         appBar: new AppBar(
-          title: new Text('Plugin example app'),
+          title: new Text('CardIO sample app'),
         ),
         body: new Column(
           children: <Widget>[

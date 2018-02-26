@@ -89,24 +89,55 @@ public class FlutterCardIoPlugin implements MethodCallHandler, ActivityResultLis
                 scanExpiry = methodCall.argument("scanExpiry");
             }
 
-            boolean scanInstructions = false;
+            String scanInstructions = null;
             if (methodCall.hasArgument("scanInstructions")) {
                 scanInstructions = methodCall.argument("scanInstructions");
+            }
+
+            boolean suppressManualEntry = false;
+            if (methodCall.hasArgument("suppressManualEntry")) {
+                suppressManualEntry = methodCall.argument("suppressManualEntry");
+            }
+
+            boolean suppressConfirmation = false;
+            if (methodCall.hasArgument("suppressConfirmation")) {
+                suppressConfirmation = methodCall.argument("suppressConfirmation");
+            }
+
+            boolean useCardIOLogo = false;
+            if (methodCall.hasArgument("useCardIOLogo")) {
+                useCardIOLogo = methodCall.argument("useCardIOLogo");
+            }
+
+            boolean hideCardIOLogo = false;
+            if (methodCall.hasArgument("hideCardIOLogo")) {
+                hideCardIOLogo = methodCall.argument("hideCardIOLogo");
+            }
+
+            boolean usePayPalActionbarIcon = true;
+            if (methodCall.hasArgument("usePayPalActionbarIcon")) {
+                usePayPalActionbarIcon = methodCall.argument("usePayPalActionbarIcon");
+            }
+
+            boolean keepApplicationTheme = false;
+            if (methodCall.hasArgument("keepApplicationTheme")) {
+                keepApplicationTheme = methodCall.argument("keepApplicationTheme");
             }
 
             // customize these values to suit your needs.
             scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, requireExpiry); // default: false
             scanIntent.putExtra(CardIOActivity.EXTRA_SCAN_EXPIRY, scanExpiry);
             scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_CVV, requireCVV); // default: false
-            scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE, requirePostalCode); // default: false
+            scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE    , requirePostalCode); // default: false
             scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_CARDHOLDER_NAME, requireCardHolderName);
             scanIntent.putExtra(CardIOActivity.EXTRA_RESTRICT_POSTAL_CODE_TO_NUMERIC_ONLY, restrictPostalCodeToNumericOnly);
             scanIntent.putExtra(CardIOActivity.EXTRA_SCAN_INSTRUCTIONS, scanInstructions);
-
-            scanIntent.putExtra(CardIOActivity.EXTRA_USE_CARDIO_LOGO, true);
-            scanIntent.putExtra(CardIOActivity.EXTRA_HIDE_CARDIO_LOGO, true);
-            scanIntent.putExtra(CardIOActivity.EXTRA_USE_PAYPAL_ACTIONBAR_ICON, false);
-            scanIntent.putExtra(CardIOActivity.EXTRA_KEEP_APPLICATION_THEME, true);
+            scanIntent.putExtra(CardIOActivity.EXTRA_SUPPRESS_MANUAL_ENTRY, suppressManualEntry);
+            scanIntent.putExtra(CardIOActivity.EXTRA_SUPPRESS_CONFIRMATION, suppressConfirmation);
+            scanIntent.putExtra(CardIOActivity.EXTRA_USE_CARDIO_LOGO, useCardIOLogo);
+            scanIntent.putExtra(CardIOActivity.EXTRA_HIDE_CARDIO_LOGO, hideCardIOLogo);
+            scanIntent.putExtra(CardIOActivity.EXTRA_USE_PAYPAL_ACTIONBAR_ICON, usePayPalActionbarIcon);
+            scanIntent.putExtra(CardIOActivity.EXTRA_KEEP_APPLICATION_THEME, keepApplicationTheme);
 
             // MY_SCAN_REQUEST_CODE is arbitrary and is only used within this activity.
             activity.startActivityForResult(scanIntent, MY_SCAN_REQUEST_CODE);
@@ -124,6 +155,7 @@ public class FlutterCardIoPlugin implements MethodCallHandler, ActivityResultLis
                 Map<String, Object> response = new HashMap<>();
                 response.put("cardholderName", scanResult.cardholderName);
                 response.put("cardNumber", scanResult.cardNumber);
+                response.put("redactedCardNumber", scanResult.getRedactedCardNumber());
                 response.put("expiryMonth", scanResult.expiryMonth);
                 response.put("expiryYear", scanResult.expiryYear);
                 response.put("cvv", scanResult.cvv);
