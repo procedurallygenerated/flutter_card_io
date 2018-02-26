@@ -12,7 +12,7 @@ First, add `flutter_card_io` as a [dependency in your pubspec.yaml file](https:/
 
 Add the following key to your _Info.plist_ file, located in `<project root>/ios/Runner/Info.plist`:
 
-* `NSCameraUsageDescription` - Set the value to be a string describing why your app needs to use the camera (e.g. "To scan credit cards."). This string will be displayed when the app initially requests permission to access the camera.
+`NSCameraUsageDescription` - Set the value to be a string describing why your app needs to use the camera (e.g. "To scan credit cards."). This string will be displayed when the app initially requests permission to access the camera.
 
 ### Android
 
