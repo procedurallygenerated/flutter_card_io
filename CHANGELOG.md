@@ -1,3 +1,8 @@
+## [0.0.3] - Return cardType.
+
+* Return card type
+* Update pubspec remove sdk version
+
 ## [0.0.2] - Updated readme.
 
 * Update readme so it looks good on pub.dartlang.org
