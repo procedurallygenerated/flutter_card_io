@@ -1,7 +1,6 @@
 ## [0.0.3] - Return cardType.
 
-* Return card type
-* Update pubspec remove sdk version
+* Return credit card type
 
 ## [0.0.2] - Updated readme.
 

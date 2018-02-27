@@ -4,6 +4,9 @@ version: 0.0.3
 author: ProcedurallyGenerated
 homepage: https://github.com/procedurallygenerated/flutter_card_io
 
+environment:
+    sdk: ">=1.8.0 <2.0.0"
+
 dependencies:
   flutter:
     sdk: flutter
