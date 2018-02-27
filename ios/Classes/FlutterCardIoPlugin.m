@@ -71,9 +71,32 @@
 }
 
 - (void)userDidProvideCreditCardInfo:(CardIOCreditCardInfo *)info inPaymentViewController:(CardIOPaymentViewController *)paymentViewController {
+    NSString *cardType = nil;
+    if(info.cardType != CardIOCreditCardTypeUnrecognized && info.cardType != CardIOCreditCardTypeAmbiguous) {
+        switch (info.cardType) {
+            case CardIOCreditCardTypeAmex:
+                cardType = @"Amex";
+                break;
+            case CardIOCreditCardTypeJCB:
+                cardType = @"JCB";
+                break;
+            case CardIOCreditCardTypeVisa:
+                cardType = @"Visa";
+                break;
+            case CardIOCreditCardTypeMastercard:
+                cardType = @"MasterCard";
+                break;
+            case CardIOCreditCardTypeDiscover:
+                cardType = @"Discover";
+                break;
+            default:
+                break;
+        }
+    }
     _result(@{
         @"cardholderName": ObjectOrNull(info.cardholderName),
         @"cardNumber": ObjectOrNull(info.cardNumber),
+        @"cardType": ObjectOrNull(cardType),
         @"redactedCardNumber": ObjectOrNull(info.redactedCardNumber),
         @"expiryMonth": ObjectOrNull(@(info.expiryMonth)),
         @"expiryYear": ObjectOrNull(@(info.expiryYear)),

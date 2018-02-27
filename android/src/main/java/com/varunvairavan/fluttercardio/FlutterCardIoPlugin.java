@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.card.payment.CardIOActivity;
+import io.card.payment.CardType;
 import io.card.payment.CreditCard;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -84,7 +85,7 @@ public class FlutterCardIoPlugin implements MethodCallHandler, ActivityResultLis
                 restrictPostalCodeToNumericOnly = methodCall.argument("restrictPostalCodeToNumericOnly");
             }
 
-            boolean scanExpiry = false;
+            boolean scanExpiry = true;
             if (methodCall.hasArgument("scanExpiry")) {
                 scanExpiry = methodCall.argument("scanExpiry");
             }
@@ -128,7 +129,7 @@ public class FlutterCardIoPlugin implements MethodCallHandler, ActivityResultLis
             scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, requireExpiry); // default: false
             scanIntent.putExtra(CardIOActivity.EXTRA_SCAN_EXPIRY, scanExpiry);
             scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_CVV, requireCVV); // default: false
-            scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE    , requirePostalCode); // default: false
+            scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE, requirePostalCode); // default: false
             scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_CARDHOLDER_NAME, requireCardHolderName);
             scanIntent.putExtra(CardIOActivity.EXTRA_RESTRICT_POSTAL_CODE_TO_NUMERIC_ONLY, restrictPostalCodeToNumericOnly);
             scanIntent.putExtra(CardIOActivity.EXTRA_SCAN_INSTRUCTIONS, scanInstructions);
@@ -155,6 +156,35 @@ public class FlutterCardIoPlugin implements MethodCallHandler, ActivityResultLis
                 Map<String, Object> response = new HashMap<>();
                 response.put("cardholderName", scanResult.cardholderName);
                 response.put("cardNumber", scanResult.cardNumber);
+                String cardType = null;
+                if (scanResult.getCardType() != CardType.UNKNOWN && scanResult.getCardType() != CardType.INSUFFICIENT_DIGITS) {
+                    switch (scanResult.getCardType()) {
+                        case AMEX:
+                            cardType = "Amex";
+                            break;
+                        case DINERSCLUB:
+                            cardType = "DinersClub";
+                            break;
+                        case DISCOVER:
+                            cardType = "Discover";
+                            break;
+                        case JCB:
+                            cardType = "JCB";
+                            break;
+                        case MASTERCARD:
+                            cardType = "MasterCard";
+                            break;
+                        case VISA:
+                            cardType = "Visa";
+                            break;
+                        case MAESTRO:
+                            cardType = "Maestro";
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                response.put("cardType", cardType);
                 response.put("redactedCardNumber", scanResult.getRedactedCardNumber());
                 response.put("expiryMonth", scanResult.expiryMonth);
                 response.put("expiryYear", scanResult.expiryYear);
