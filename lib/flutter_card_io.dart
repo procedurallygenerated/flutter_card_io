@@ -6,8 +6,8 @@ class FlutterCardIo {
   static const MethodChannel _channel =
       const MethodChannel('flutter_card_io');
 
-  static Future<dynamic> scanCard(Map<String, dynamic> args) {
-    return _channel.invokeMethod('scanCard', args);
+  static Future<Map<String,dynamic>> scanCard(Map<String, dynamic> args) async {
+    return Map.from(await _channel.invokeMethod('scanCard', args));
   }
 
 }
