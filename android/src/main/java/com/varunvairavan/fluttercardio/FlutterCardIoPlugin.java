@@ -21,7 +21,7 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
  * FlutterCardIoPlugin
  */
 public class FlutterCardIoPlugin implements MethodCallHandler, ActivityResultListener {
-    private static final int MY_SCAN_REQUEST_CODE = 100;
+    private static final int MY_SCAN_REQUEST_CODE = "flutter_card_io".hashCode();
 
     private final PluginRegistry.Registrar registrar;
     private Result pendingResult;
