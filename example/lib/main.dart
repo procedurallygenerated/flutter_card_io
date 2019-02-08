@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:convert';
 import 'package:flutter_card_io/flutter_card_io.dart';
 
 void main() => runApp(new MyApp());
@@ -22,17 +23,18 @@ class _MyAppState extends State<MyApp> {
     Map<String, dynamic> details;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      details = await FlutterCardIo.scanCard({
+      var _result = await FlutterCardIo.scanCard({
         "requireExpiry": true,
         "scanExpiry": true,
         "requireCVV": true,
         "requirePostalCode": true,
         "restrictPostalCodeToNumericOnly": true,
         "requireCardHolderName": true,
-        "scanInstructions": "Hola! Fit the card within the box",
+        "scanInstructions": "Please fit the card in the box!",
       });
-
+      details = json.decode(json.encode(_result));
     } on PlatformException {
+      print("Failed");
       print("Failed");
       return;
     }
@@ -56,7 +58,7 @@ class _MyAppState extends State<MyApp> {
         appBar: new AppBar(
           title: new Text('CardIO sample app'),
         ),
-        body: new Column(
+        body: new ListView(
           children: <Widget>[
             new Column(
               children: _data.keys.map((String key) {
@@ -71,7 +73,7 @@ class _MyAppState extends State<MyApp> {
                   onPressed: _scanCard,
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
