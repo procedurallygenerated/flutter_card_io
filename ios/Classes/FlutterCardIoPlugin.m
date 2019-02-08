@@ -37,13 +37,13 @@
                                     details:nil]);
         _result = nil;
     }
-    
+
     if ([@"scanCard" isEqualToString:call.method]) {
         _scanViewController.delegate = self;
-        
+
         _result = result;
         _arguments = call.arguments;
-        
+
         _scanViewController.scanExpiry = [_arguments objectForKey:@"scanExpiry"] ? [[_arguments objectForKey:@"scanExpiry"] boolValue] : false;
         _scanViewController.collectExpiry = [_arguments objectForKey:@"requireExpiry"] ? [[_arguments objectForKey:@"requireExpiry"] boolValue] : false;
         _scanViewController.collectCVV = [_arguments objectForKey:@"requireCVV"] ? [[_arguments objectForKey:@"requireCVV"] boolValue] : false;
@@ -56,7 +56,7 @@
         _scanViewController.useCardIOLogo = [_arguments objectForKey:@"useCardIOLogo"] ? [[_arguments objectForKey:@"useCardIOLogo"] boolValue] : false;
         _scanViewController.suppressScanConfirmation = [_arguments objectForKey:@"suppressConfirmation"] ? [[_arguments objectForKey:@"suppressConfirmation"] boolValue] : false;
         _scanViewController.disableManualEntryButtons = [_arguments objectForKey:@"suppressManualEntry"] ? [[_arguments objectForKey:@"suppressManualEntry"] boolValue] : false;
-        
+
         [_viewController presentViewController:_scanViewController animated:YES completion:nil];
     } else {
         result(FlutterMethodNotImplemented);

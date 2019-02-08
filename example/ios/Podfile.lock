@@ -6,8 +6,8 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - Flutter (from `Pods/.symlinks/flutter/ios-release`)
-  - flutter_card_io (from `Pods/.symlinks/plugins/flutter_card_io/ios`)
+  - Flutter (from `.symlinks/flutter/ios`)
+  - flutter_card_io (from `.symlinks/plugins/flutter_card_io/ios`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -15,15 +15,15 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   Flutter:
-    :path: Pods/.symlinks/flutter/ios-release
+    :path: ".symlinks/flutter/ios"
   flutter_card_io:
-    :path: Pods/.symlinks/plugins/flutter_card_io/ios
+    :path: ".symlinks/plugins/flutter_card_io/ios"
 
 SPEC CHECKSUMS:
   CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
   Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
-  flutter_card_io: dc89303a27586e22bdc5dceb32dc5d558381b444
+  flutter_card_io: c72cebc3e0af063e30ae3e105159892cc9d5aa0b
 
-PODFILE CHECKSUM: 0420ab312a523ae0eecfb1fc19ea51dd82cc17c7
+PODFILE CHECKSUM: ebd43b443038e611b86ede96e613bd6033c49497
 
 COCOAPODS: 1.5.3
