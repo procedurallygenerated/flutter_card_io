@@ -17,5 +17,9 @@ CardIO flutter plugin.
   s.dependency 'Flutter'
   s.dependency 'CardIO'
   s.ios.deployment_target = '8.0'
+  s.ios.xcconfig = {
+    "LIBRARY_SEARCH_PATHS" => "$(inherited) \"${PODS_ROOT}/CardIO/CardIO\"",
+    "OTHER_LDFLAGS" => "$(inherited) -l\"CardIO\" -l\"c++\" -l\"opencv_core\" -l\"opencv_imgproc\" -framework \"AVFoundation\" -framework \"Accelerate\" -framework \"AudioToolbox\" -framework \"CoreMedia\" -framework \"CoreVideo\" -framework \"MobileCoreServices\" -framework \"OpenGLES\" -framework \"QuartzCore\" -framework \"Security\" -framework \"UIKit\""
+  }
 end
 
