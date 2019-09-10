@@ -17,5 +17,6 @@ CardIO flutter plugin.
   s.dependency 'Flutter'
   s.dependency 'CardIO'
   s.ios.deployment_target = '8.0'
+  s.static_framework = true
 end
 
